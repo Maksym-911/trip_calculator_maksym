@@ -1,37 +1,46 @@
 import random
 import math
 
+#Introduction
 print("\n=== Trip Cost Calculator ===")
 num_trips = int(input("How many trips do you want to calculate? "))
 for i in range(num_trips):
     print(f"\n🚗 Trip {i+1}")
     
-    # Distance input
+    # Distance choice
     print("Do you want to type your own distance, or let the computer pick it for you?")
     distance_choice = int(input("(1/2): "))
+
+    #Error check if the user doesn't follow the instructions
     while distance_choice != 1 and distance_choice != 2:
         print("Choose between 1 and 2")
         distance_choice = int(input("(1/2): "))
-    
+
+    #Random distance
     if distance_choice == 2:
         distance = random.randint(1, 13000)
         print(distance, "km")
+
+    #Your own distance
     else:
         distance = float(input("Enter the distance in km: "))
         while distance <= 0:
             print("Distance must be greater than 0.")
             distance = float(input("Enter the distance in km: "))
 
+    #Transport preference
     transport = str(input("What's your transport (bike or car): ")).lower()
     if transport == "bike":
         print("Good luck 🚴‍♂️")
         continue  # Skip the rest and go to the next trip
 
+    #fuel consumption (liters/100 km)
     fuel_consumption = float(input("Enter fuel consumption (liters/100 km): "))
     while fuel_consumption <= 0:
         print("Fuel consumption must be greater than 0.")
         fuel_consumption = float(input("Enter fuel consumption (liters/100 km): "))
 
+    #Price_per_liter
     price_per_liter = float(input("Enter the price per liter of fuel: "))
     while price_per_liter <= 0:
         print("Price must be greater than 0.")
