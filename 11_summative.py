@@ -1,68 +1,96 @@
 #Author: Maksym
-#Date Modified: Apr 29, 2025
+#Date Modified: May 2, 2025
 #Description: summative
 
 import random
-import math
 
-#Introduction
+# Introduction
 print("\n=== Trip Cost Calculator ===")
+
 # Trips amount
 while True:
     try:
-        num_trips = int(input("How many trips do you want to calculate? "))
-        for i in range(num_trips):
-            print(f"\nTrip {i+1}")
+        num_trips = int(input("How many trips do you want to calculate? ")) # Input
         if num_trips <= 0:
             print("Value must be greater than zero.")
+        # Successfully
         else:
             break
+    # Error check on anything exsept numbers
     except ValueError:
         print("Please enter a number.")
 
+# Loop through each trip
+for i in range(num_trips):
+    print(f"\n--- Trip {i+1} ---")
+
     # Distance choice
-    
-    print("Do you want to type your own distance, or let the computer pick it for you?")
-    distance_choice = (input("(1/2): "))
+    while True:
+        distance_choice = input("Do you want to type your own distance, or let the computer pick it for you? (1 = own / 2 = random): ") # Input
+        # Successfully
+        if distance_choice in ("1", "2"):
+            break
+        # Error check on anything exsept 1 or 2
+        else:
+            print("Please enter either 1 or 2.")
 
-    #Error check if the user doesn't input anything
-    while distance_choice == "":
-        print("Type something!")
-        distance_choice = (input("(1/2): "))
-    #Error check if the user doesn't follow the instructions
-    while distance_choice != "1" and distance_choice != "2":
-        print("Choose between 1 and 2")
-        distance_choice = (input("(1/2): "))
-
-    #Random distance
+    # Random distance
     if distance_choice == "2":
         distance = random.randint(1, 13000)
-        print(distance, "km")
-
-    #Your own distance
+        print(f"Randomly selected distance: {distance} km")
     else:
-        distance = float(input("Enter the distance in km: "))
-        while distance <= 0:
-            print("Distance must be greater than 0.")
-            distance = float(input("Enter the distance in km: "))
+        while True:
+            try:
+                # Your own distance
+                distance = float(input("Enter the distance in km: "))
+                if distance <= 0:
+                    print("Distance must be greater than 0.")
+                # Successfully
+                else:
+                    break
+            # Error check on anything exsept numbers
+            except ValueError:
+                print("Please enter a number.")
 
-    #Transport preference
-    transport = str(input("What's your transport (bike or car): ")).lower()
+    # Transport preference
+    while True:
+        transport = input("What's your transport (bike or car): ").lower()
+        # Successfully
+        if transport in ("bike", "car"):
+            break
+        # Error check on anything exsept bike or car
+        else:
+            print("Please enter either 'bike' or 'car'.")
+    # Bikes don't require any fuel calculations
     if transport == "bike":
         print("Good luck 🚴‍♂️")
-        continue  # Skip the rest and go to the next trip
+        continue 
 
-    #fuel consumption (liters/100 km)
-    fuel_consumption = float(input("Enter fuel consumption (liters/100 km): "))
-    while fuel_consumption <= 0:
-        print("Fuel consumption must be greater than 0.")
-        fuel_consumption = float(input("Enter fuel consumption (liters/100 km): "))
+    # Fuel consumption (liters/100 km)
+    while True:
+        try:
+            fuel_consumption = float(input("Enter fuel consumption (liters/100 km): "))
+            if fuel_consumption <= 0:
+                print("Fuel consumption must be greater than 0.")
+            # Successfully
+            else:
+                break
+        # Error check on anything exsept numbers
+        except ValueError:
+            print("Please enter a number.")
 
-    #Price_per_liter
-    price_per_liter = float(input("Enter the price per liter of fuel: "))
-    while price_per_liter <= 0:
-        print("Price must be greater than 0.")
-        price_per_liter = float(input("Enter the price per liter of fuel: "))
+    # Price per liter
+    while True:
+        try:
+            price_per_liter = float(input("Enter the price per liter of fuel: "))
+            if price_per_liter <= 0:
+                print("Price per liter must be greater than 0.")
+            # Successfully
+            else:
+                break
+        # Error check on anything exsept numbers
+        except ValueError:
+            print("Please enter a number.")
 
     # Calculation
     liters_needed = (fuel_consumption / 100) * distance
@@ -70,7 +98,8 @@ while True:
 
     # Output
     print(f"\nTrip {i+1} Results:")
-    print(f"Fuel needed: {liters_needed:.2f} liters.")
+    print(f"Distance: {distance:.2f} km")
+    print(f"Fuel needed: {liters_needed:.2f} liters")
     print(f"Trip cost: ${total_cost:.2f} CAD")
 
-print("Thanks for using the calculator!")
+print("\nThanks for using the calculator!")
